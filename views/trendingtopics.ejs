@@ -41,7 +41,7 @@
                 localStorage.setItem("start", 5);
 
                 document.querySelector(".loading").textContent = "Loading..."
-                const res = await fetch("http://localhost:8080/tdata");
+                const res = await fetch("https://automation-testing-with-twitter.onrender.com/tdata");
                 const data = await res.json();
 
 
@@ -74,7 +74,7 @@
 
                 document.querySelector(".loading").textContent = "Loading..."
 
-                const res = await fetch(`http://localhost:8080/moreTrends/${start}`);
+                const res = await fetch(`https://automation-testing-with-twitter.onrender.com/${start}`);
                 const data = await res.json();
 
                 console.log(data);
