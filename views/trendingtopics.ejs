@@ -60,6 +60,7 @@
                 // Enable the second button after first is clicked
                 secondButton.disabled = false;
             } catch (error) {
+                document.querySelector(".loading").textContent = ""
                 console.error("Error fetching data:", error);
                 alert("Failed to fetch trending topics.");
                 // Re-enable the first button in case of an error
@@ -116,6 +117,7 @@
 
                 localStorage.setItem("start", start + 5);
             } catch (error) {
+                document.querySelector(".loading").textContent = ""
                 if (error === "Cannot read properties of undefined (reading 'getText')") {
                     alert("No more trends available");
                 }
