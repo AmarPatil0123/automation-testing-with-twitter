@@ -145,5 +145,8 @@ app.listen("8080", ()=>{
 });
 
 app.all("*",(req, res)=>{
+  if(req.path === "/"){
+    return res.redirect("/recipes")
+}
   res.redirect("/")
 })
