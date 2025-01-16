@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 async function main(params) {
-  await mongoose.connect(process.env.MONGODB);
+  await mongoose.connect('mongodb://127.0.0.1:27017/trendDB');
 }
 
 main().then(()=>{
@@ -38,26 +38,32 @@ app.get("/tdata", async(req, res)=>{
 
     await driver.findElement(By.className("css-175oi2r")).click();
 
-    const usernameField = await driver.wait(until.elementLocated(By.xpath("//input[@autocomplete='username']")), 5000)
+    const usernameField = await driver.wait(until.elementLocated(By.xpath("//input[@autocomplete='username']")), 10000)
     await usernameField.sendKeys(process.env.USER);
 
     await driver.findElement(By.xpath("//button[.//span[text()='Next']]")).click();
 
-    // const emailField = await driver.wait(until.elementLocated(By.xpath("//input[@type='text']")), 4000);
-    // await emailField.sendKeys("apscary444@gmail.com");
-
-    // await driver.findElement(By.xpath, "//button[@tabindex='-1']").click();
-
-    const passwordField = await driver.wait(until.elementLocated(By.xpath("//input[@type='password']")), 4000);
+   
+    const passwordField = await driver.wait(until.elementLocated(By.xpath("//input[@type='password']")), 10000);
     await passwordField.sendKeys(process.env.PASSWORD);
    
     await driver.findElement(By.xpath("//button[@data-testid='LoginForm_Login_Button']")).click();
+
+    if(await driver.wait(until.elementLocated(By.xpath("//input[@type='email']")), 10000)){
+      const emailField = await driver.wait(until.elementLocated(By.xpath("//input[@type='email']")), 10000);
+      await emailField.sendKeys("apscary444@gmail.com");
+  
+      await driver.findElement(By.xpath("//button[@data-testid='ocfEnterTextNextButton']")).click();
+  
+    }
+
+   
    
     await driver.sleep(10000);
 
     await driver.executeScript("window.location.href='https://x.com/explore/tabs/trending'")
 
-    await driver.sleep(4000);
+    await driver.sleep(10000);
 
     let trendsList = await driver.wait(until.elementsLocated(By.xpath("//div[contains(@class, 'r-1bymd8e')]//span[contains(@class, 'css-1jxf684')]")), 100000)
 
